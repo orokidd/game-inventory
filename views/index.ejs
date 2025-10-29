@@ -9,55 +9,67 @@
 </head>
 
 <body>
-    <div class="filters">
-        <form action="/" method="GET">
-            <label for="developer">Filter by Developer:</label>
-            <select name="developer" id="developer" onchange="clearOtherFilter('genre'); this.form.submit()">
-                <option value="">All Developers</option>
-                <% developers.forEach(dev => { %>
-                    <option value="<%= dev.name %>" <%= selectedDeveloper === dev.name ? 'selected' : '' %>>
-                        <%= dev.name %>
-                    </option>
-                <% }); %>
-            </select>
+    <div class="container">
 
-            <label for="genre">Filter by Genre:</label>
-            <select name="genre" id="genre" onchange="clearOtherFilter('developer'); this.form.submit()">
-                <option value="">All Genres</option>
-                <% genres.forEach(gen => { %>
-                    <option value="<%= gen.name %>" <%= selectedGenre === gen.name ? 'selected' : '' %>>
-                        <%= gen.name %>
-                    </option>
-                <% }); %>
-            </select>
-            
-            <% if (selectedDeveloper || selectedGenre) { %>
-                <a href="/">Clear Filters</a>
-            <% } %>
-        </form>
-    </div>
-
-    <script>
-        function clearOtherFilter(filterName) {
-            document.getElementById(filterName).value = '';
-        }
-    </script>
-
-    <div class="table">
         <div class="header">
-            <div class="col">Game</div>
-            <div class="col">Developer</div>
-            <div class="col">Genre</div>
-            <div class="col">Actions</div>
+            <div class="filters">
+                <form action="/" method="GET">
+
+                    <select name="developer" id="developer" onchange="clearOtherFilter('genre'); this.form.submit()">
+                        <option value="">All Developers</option>
+                        <% developers.forEach(dev=> { %>
+                            <option value="<%= dev.name %>" <%=selectedDeveloper===dev.name ? 'selected' : '' %>>
+                                <%= dev.name %>
+                            </option>
+                            <% }); %>
+                    </select>
+                    <a href="">Manage</a>
+
+                    <select name="genre" id="genre" onchange="clearOtherFilter('developer'); this.form.submit()">
+                        <option value="">All Genres</option>
+                        <% genres.forEach(gen=> { %>
+                            <option value="<%= gen.name %>" <%=selectedGenre===gen.name ? 'selected' : '' %>>
+                                <%= gen.name %>
+                            </option>
+                            <% }); %>
+                    </select>
+                    <a href="">Manage</a>
+
+                </form>
+            </div>
+
+            <div class="add-game-button">
+                <button>New Game</button>
+            </div>
         </div>
-        <% games.forEach(game => { %>
-            <div class="data">
-                <div class="col"><%= game.title %></div>
-                <div class="col"><%= game.developer %></div>
-                <div class="col"><%= Array.isArray(game.genres) ? game.genres.join(', ') : game.genres %></div>
+
+        <script>
+            function clearOtherFilter(filterName) {
+                document.getElementById(filterName).value = '';
+            }
+        </script>
+
+        <div class="table">
+            <div class="table-header">
+                <div class="col">Game</div>
+                <div class="col">Developer</div>
+                <div class="col">Genre</div>
+                <div class="col">Actions</div>
+            </div>
+            <% games.forEach(game=> { %>
+                <div class="data">
+                    <div class="col">
+                        <%= game.title %>
+                    </div>
+                    <div class="col">
+                        <%= game.developer %>
+                    </div>
+                    <div class="col">
+                        <%= Array.isArray(game.genres) ? game.genres.join(', ') : game.genres %></div>
                 <div class="col"><a href="">Edit</a> <a href="">Del</a></div>
             </div>
         <% }); %>
+    </div>
     </div>
 </body>
 </html>

@@ -23,11 +23,11 @@ input, button, textarea, select {
   font: inherit;
 }
 
-button {
+/* button {
   border: none;
   background: none;
   cursor: pointer;
-}
+} */
 
 ul, ol {
   list-style: none;
@@ -48,19 +48,26 @@ body {
   background-color: rgb(243, 243, 243);
 }
 
-.table {
+.header {
+  display: flex;
+  justify-content: space-between;
+
+  padding-bottom: 18px;
+}
+
+.container {
   max-width: 1200px;
   padding: 40px;
 }
 
-.header, .data {
+.table-header, .data {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 
   border: 1px solid rgb(194, 194, 194);
 }
 
-.header .col {
+.table-header .col {
   font-weight: 600;
   font-size: 18px;
 }

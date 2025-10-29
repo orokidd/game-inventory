@@ -9,6 +9,20 @@
 </head>
 
 <body>
+    <div class="filters">
+        <form action="/" method="GET">
+            <label for="developer">Filter by Developer:</label>
+            <select name="developer" id="developer" onchange="this.form.submit()">
+                <option value="">All Developers</option>
+                <% developers.forEach(dev => { %>
+                    <option value="<%= dev.name %>" <%= selectedDeveloper === dev.name ? 'selected' : '' %>>
+                        <%= dev.name %>
+                    </option>
+                <% }); %>
+            </select>
+        </form>
+    </div>
+
     <div class="table">
         <div class="header">
             <div class="col">Game</div>

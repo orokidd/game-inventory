@@ -44,8 +44,13 @@ p, h1, h2, h3, h4, h5, h6 {
 
 /* OWN CSS */
 
+body {
+  background-color: rgb(243, 243, 243);
+}
+
 .table {
   max-width: 1200px;
+  padding: 40px;
 }
 
 .header, .data {
@@ -53,4 +58,9 @@ p, h1, h2, h3, h4, h5, h6 {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 
   border: 1px solid rgb(194, 194, 194);
+}
+
+.header .col {
+  font-weight: 600;
+  font-size: 18px;
 }

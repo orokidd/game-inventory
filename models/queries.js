@@ -74,8 +74,19 @@ async function getGamesByGenre(genre) {
   return rows;
 }
 
+async function getAllDevelopers() {
+  const query = `
+    SELECT id, name
+    FROM developers
+    ORDER BY name ASC;
+  `;
+  const { rows } = await pool.query(query);
+  return rows;
+}
+
 module.exports = {
   getAllGames,
   getGamesByDeveloper,
   getGamesByGenre,
+  getAllDevelopers
 };

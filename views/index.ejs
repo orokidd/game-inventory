@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
@@ -13,6 +14,7 @@
             <div class="col">Game</div>
             <div class="col">Developer</div>
             <div class="col">Genre</div>
+            <div class="col">Actions</div>
         </div>
 
         <% games.forEach (game => { %>
@@ -20,6 +22,7 @@
                 <div class="col"><%= game.title %></div>
                 <div class="col"><%= game.developer %></div>
                 <div class="col"><%= Array.isArray(game.genres) ? game.genres.join(', ') : game.genres %></div>
+                <div class="col"><a href="">Edit</a> <a href="">Del</a></div>
             </div>
         <% }); %>
     </div>

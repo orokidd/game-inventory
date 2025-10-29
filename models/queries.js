@@ -49,7 +49,7 @@ async function getGamesByDeveloper(developer) {
   return rows;
 }
 
-async function getGamesByGenre(genre) {
+async function getGamesByGenre(genreName) {
   const query = `
     SELECT
       games.id,
@@ -57,22 +57,25 @@ async function getGamesByGenre(genre) {
       games.release_date,
       games.description,
       developers.name AS developer,
-      COALESCE(ARRAY_AGG(genres.name), '{}') AS genres
+      COALESCE(ARRAY_AGG(genres.name) FILTER (WHERE genres.name IS NOT NULL), '{}') AS genres
     FROM games
-    LEFT JOIN developers
-      ON games.developer_id = developers.id
-    LEFT JOIN game_genres
-      ON games.id = game_genres.game_id
-    LEFT JOIN genres
-      ON game_genres.genre_id = genres.id
+    LEFT JOIN developers ON games.developer_id = developers.id
+    LEFT JOIN game_genres ON games.id = game_genres.game_id
+    LEFT JOIN genres ON game_genres.genre_id = genres.id
+    WHERE games.id IN (
+      SELECT game_genres.game_id
+      FROM game_genres
+      JOIN genres ON game_genres.genre_id = genres.id
+      WHERE genres.name = $1
+    )
     GROUP BY games.id, developers.name
-    HAVING ARRAY_AGG(genres.name) @> ARRAY[$1]
-    ORDER BY games.id;
+    ORDER BY games.release_date DESC;
   `;
-
-  const { rows } = await pool.query(query, [genre]);
+  const { rows } = await pool.query(query, [genreName]);
   return rows;
 }
+
+// Filter
 
 async function getAllDevelopers() {
   const query = `
@@ -84,9 +87,20 @@ async function getAllDevelopers() {
   return rows;
 }
 
+async function getAllGenres() {
+  const query = `
+    SELECT id, name
+    FROM genres
+    ORDER BY name ASC;
+  `;
+  const { rows } = await pool.query(query);
+  return rows;
+}
+
 module.exports = {
   getAllGames,
   getGamesByDeveloper,
   getGamesByGenre,
-  getAllDevelopers
+  getAllDevelopers,
+  getAllGenres,
 };

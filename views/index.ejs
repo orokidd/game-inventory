@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+    <div class="table">
+        <div class="header">
+            <div class="col">Game</div>
+            <div class="col">Developer</div>
+            <div class="col">Genre</div>
+        </div>
+
+        <% games.forEach (game => { %>
+            <div class="data">
+                <div class="col"><%= game.title %></div>
+                <div class="col"><%= game.developer %></div>
+                <div class="col"><%= Array.isArray(game.genres) ? game.genres.join(', ') : game.genres %></div>
+            </div>
+        <% }); %>
+    </div>
+</body>
+</html>

@@ -5,4 +5,8 @@ router.get('/', (req, res) => {
     res.render("newGame")
 })
 
+router.post('/', (req, res) => {
+    
+})
+
 module.exports = router;
